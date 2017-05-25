@@ -92,7 +92,7 @@
 (defun show-prolog-solutions (vars solutions)
   (if (null solutions)
       (format t "~&No.")
-      (mapc #'(lambda (solution) (show-prolog-vars vars solution))
+      (mapc #'(lambda (solution) (show-prolog-vars vars solution nil))
             solutions))
   (values))
 
