@@ -8,6 +8,7 @@
   :components ((:module "src"
                         :serial t
                         :components ((:file "package")
+                                     (:file "utilities")
                                      ;; words
                                      (:file "phonology")
                                      (:file "morphology")
