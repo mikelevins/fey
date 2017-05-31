@@ -12,6 +12,10 @@
                                      ;; words
                                      (:file "phonology")
                                      (:file "morphology")
+                                     (:file "core-syllables")
+                                     (:file "cv-particles")
+                                     (:file "vc-particles")
+                                     (:file "medials")
                                      ;; grammar
                                      ;; interpreter internals
                                      (:file "unify")

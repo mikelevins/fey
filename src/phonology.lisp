@@ -33,15 +33,14 @@
     ("l" :voiced :alveolar :lateral-approximant)
     ("s" :voiceless :alveolar :fricative)
     ("z" :voiced :alveolar :fricative)
-    ("sh" :voiceless :alveolar :palatal :fricative)
-    ("zh" :voiced :alveolar :palatal :fricative)
+    ("sh" :voiceless :palatoalveolar :fricative)
+    ("zh" :voiced  :palatoalveolar :fricative)
     ("y" :voiced :palatal :approximant)
     ("ng" :voiced :velar :nasal)
     ("c" :voiceless :velar :plosive)
     ("g" :voiced :velar :plosive)
     ("ch" :voiceless :velar :fricative)
     ("gh" :voiced :velar :fricative)
-    ("wh" :voiceless :labiovelar :approximant)
     ("w" :voiced :labiovelar :approximant)
     ("h" :voiceless :glottal :fricative)))
 
@@ -54,11 +53,12 @@
                          $consonant-kinds)))
     (mapcar #'first found-kinds)))
 
-(defun consonant-kinds (consonant)
+(defun consonant->kinds (consonant)
   (let ((found (assoc consonant $consonant-kinds :test #'equalp)))
     (if found
         (cdr found)
         nil)))
+
 
 ;;; ---------------------------------------------------------------------
 ;;; vowels
