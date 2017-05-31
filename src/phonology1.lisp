@@ -1,70 +1,81 @@
 (in-package :fi)
 
 ;;; ---------------------------------------------------------------------
+;;; consonants
+;;; ---------------------------------------------------------------------
+
+;;; voicing
+(defparameter $voicings '(:voiced :voiceless))
+
+;;; places:
+(defparameter $places
+  '(:labial :bilabial :labiodental :dental :alveolar :palatoalveolar
+    :retroflex :palatal :velar :labiovelar :uvular :pharyngeal
+    :glottal))
+
+;;; manners:
+(defparameter $manners
+  '(:nasal :plosive :affricate :fricative :approximant :trill :flap
+    :lateral-fricative :lateral-approximant :lateral-flap))
+
+(defparameter $consonant-kinds
+  '(("p" :voiceless :bilabial :plosive)
+    ("b" :voiced :bilabial :plosive)
+    ("m" :voiced :bilabial :nasal)
+    ("f" :voiceless :labiodental :fricative)
+    ("v" :voiced :labiodental :fricative)
+    ("th" :voiceless :dental :fricative)
+    ("dh" :voiced :dental :fricative)
+    ("t" :voiceless :alveolar :plosive)
+    ("d" :voiced :alveolar :plosive)
+    ("n" :voiced :alveolar :nasal)
+    ("r" :voiced :alveolar :trill)
+    ("l" :voiced :alveolar :lateral-approximant)
+    ("s" :voiceless :alveolar :fricative)
+    ("z" :voiced :alveolar :fricative)
+    ("sh" :voiceless :palatoalveolar :fricative)
+    ("zh" :voiced  :palatoalveolar :fricative)
+    ("y" :voiced :palatal :approximant)
+    ("ng" :voiced :velar :nasal)
+    ("c" :voiceless :velar :plosive)
+    ("g" :voiced :velar :plosive)
+    ("ch" :voiceless :velar :fricative)
+    ("gh" :voiced :velar :fricative)
+    ("w" :voiced :labiovelar :approximant)
+    ("h" :voiceless :glottal :fricative)))
+
+(defun consonants (&rest kinds)
+  (let ((found-kinds (if kinds
+                         (remove-if-not (lambda (kind)
+                                          (every (lambda (ck)(member ck kind))
+                                                 kinds))
+                                        $consonant-kinds)
+                         $consonant-kinds)))
+    (mapcar #'first found-kinds)))
+
+(defun consonant->kinds (consonant)
+  (let ((found (assoc consonant $consonant-kinds :test #'equalp)))
+    (if found
+        (cdr found)
+        nil)))
+
+
+;;; ---------------------------------------------------------------------
 ;;; vowels
 ;;; ---------------------------------------------------------------------
 
 (defparameter $short-vowels
-  `("a" "e" "i" "o" "u"))
+  '("a" "e" "i" "i" "i"))
 
 (defparameter $long-vowels
-  `("a" "e" "i" "o" "u" "á" "é" "í" "ó" "ú"))
+  '("á" "é" "í" "ó" "ú"))
 
-(defparameter $vowels
-  (concatenate 'list $short-vowels $long-vowels))
-
-;;; ---------------------------------------------------------------------
-;;; diphthongs
-;;; ---------------------------------------------------------------------
-
-(defparameter $diphtongs
-  '("ae" "ai" "ao" "au"
+(defparameter $diphthongs
+  '("a" "e" "i" "o" "u"
+    "ae" "ai" "ao" "au"
     "ea" "ei" "eo" "eu"
     "ia" "ie" "io" "iu"
     "oa" "oe" "oi" "ou"
     "ua" "ue" "ui" "uo"))
 
-;;; ---------------------------------------------------------------------
-;;; consonants
-;;; ---------------------------------------------------------------------
-
-(defparameter $base-consonants
-  '("mh" "nh" "ngh" "f" "th" "s" "x" "ch" "h" "rh" "lh" "yh" "wh"))
-
-(defparameter $voiced-consonants
-  '("m" "n" "ng" "v" "dh" "z" "zh" "gh" "r" "l" "y" "w"))
-
-(defparameter $stops
-  '("p" "t" "c"))
-
-(defparameter $voiced-stops
-  '("b" "d" "g"))
-
-
-;;; ---------------------------------------------------------------------
-;;; initials
-;;; ---------------------------------------------------------------------
-
-(defparameter $initial-vowels (append $vowels $diphtongs))
-
-(defparameter $initial-consonants
-  '("mh" "nh" "f" "th" "s" "x" "ch" "h" "rh" "lh" "yh" "wh" "m" "n" "v" "dh" "r" "l" "y" "w"
-    "fw" "thw" "sw" "xw" "chw" "hw" "rh" "lh" "yh" "wh" "mw" "nw" "vw" "dhw" "r" "l" "y" "w"
-    "fr" "thr" "sr" "xr" "chr" "hr" "vr" "dhr"
-    "fl" "thl" "sl" "xl" "chl" "vl" "dhl"))
-
-(defparameter $final-consonants
-  '("mh" "nh" "f" "th" "s" "x" "ch" "h" "rh" "lh" "yh" "wh" "m" "n" "ng" "v" "dh" "r" "l" "y" "w"
-    "wf" "wth" "ws" "wx" "wch" "wm" "wn" "wng" "wv" "wdh" "wr" "wl" "wy"
-    "rf" "rth" "rs" "rx" "rch" "rm" "rn" "rng" "rv" "rdh" "rl" "ry"
-    "lf" "lth" "ls" "lx" "lch" "lm" "ln"  "lv" "ldh" "ly"))
-
-
-(defparameter $medial-consonants
-  (let ((consonants '("th" "s" "x" "ch" "m" "n" "ng" "v" "dh" "z" "zh" "gh" "r" "l" "y" "w")))
-    (reduce #'append
-            (loop for left in consonants
-               collect (loop for right in consonants
-                          collect (concatenate 'string left right))))))
-
-
+(defparameter $vowels (append $short-vowels $long-vowels $diphthongs))

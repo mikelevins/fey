@@ -1,74 +1,44 @@
 (in-package :fi)
 
+;;; Fállálháthá => fá llá lhá -thá
+;;; Heiróván    => hei ró vá -n
+;;; Ímbrelín    => Ĩ bre llí -n
+;;; Láthéyá     => llá thei -á
+;;; Limnics     => lli mni -cs
+;;; Baelveg     => bel ve -g
+;;; Óndá        => õ -dá
+;;; Urgónd      => úr gó -nd
+;;; Dórgól      => dor gol -thá
+
 ;;; ---------------------------------------------------------------------
 ;;; consonants
 ;;; ---------------------------------------------------------------------
 
-;;; voicing
-(defparameter $voicings '(:voiced :voiceless))
+(defparameter $initial-consonants
+  '("b" "bl" "br" "bw" "c" "cl" "cr" "cw" "d" "dr" "f" "fl" "fr" "fw" "g" "gl" "gr" "gw"
+    "h" "hl" "hr" "hw" "lh" "ll" "lv" "m" "mn" "p" "pl" "pr" "pw" "r"  "t" "th" "thl" "thr" "w"))
 
-;;; places:
-(defparameter $places
-  '(:labial :bilabial :labiodental :dental :alveolar :palatoalveolar
-    :retroflex :palatal :velar :labiovelar :uvular :pharyngeal
-    :glottal))
-
-;;; manners:
-(defparameter $manners
-  '(:nasal :plosive :affricate :fricative :approximant :trill :flap
-    :lateral-fricative :lateral-approximant :lateral-flap))
-
-(defparameter $consonant-kinds
-  '(("p" :voiceless :bilabial :plosive)
-    ("b" :voiced :bilabial :plosive)
-    ("m" :voiced :bilabial :nasal)
-    ("f" :voiceless :labiodental :fricative)
-    ("v" :voiced :labiodental :fricative)
-    ("th" :voiceless :dental :fricative)
-    ("dh" :voiced :dental :fricative)
-    ("t" :voiceless :alveolar :plosive)
-    ("d" :voiced :alveolar :plosive)
-    ("n" :voiced :alveolar :nasal)
-    ("r" :voiced :alveolar :trill)
-    ("l" :voiced :alveolar :lateral-approximant)
-    ("s" :voiceless :alveolar :fricative)
-    ("z" :voiced :alveolar :fricative)
-    ("sh" :voiceless :palatoalveolar :fricative)
-    ("zh" :voiced  :palatoalveolar :fricative)
-    ("y" :voiced :palatal :approximant)
-    ("ng" :voiced :velar :nasal)
-    ("c" :voiceless :velar :plosive)
-    ("g" :voiced :velar :plosive)
-    ("ch" :voiceless :velar :fricative)
-    ("gh" :voiced :velar :fricative)
-    ("w" :voiced :labiovelar :approximant)
-    ("h" :voiceless :glottal :fricative)))
-
-(defun consonants (&rest kinds)
-  (let ((found-kinds (if kinds
-                         (remove-if-not (lambda (kind)
-                                          (every (lambda (ck)(member ck kind))
-                                                 kinds))
-                                        $consonant-kinds)
-                         $consonant-kinds)))
-    (mapcar #'first found-kinds)))
-
-(defun consonant->kinds (consonant)
-  (let ((found (assoc consonant $consonant-kinds :test #'equalp)))
-    (if found
-        (cdr found)
-        nil)))
-
+(defparameter $final-consonants
+  '("cs" "ch" "chs" "dh" "gh" "l" "lm" "lth" "lv" "m" "n" "ns" "nth" "s" "sc" "sh" "v" "wl" "wr" "y" "z" "zh"))
 
 ;;; ---------------------------------------------------------------------
 ;;; vowels
 ;;; ---------------------------------------------------------------------
 
 (defparameter $short-vowels
-  '("a" "e" "i" "i" "i"))
+  '("a" "e" "i" "o" "u"))
 
 (defparameter $long-vowels
   '("á" "é" "í" "ó" "ú"))
+
+(defparameter $nasal-vowels
+  '("ã" "ẽ" "ĩ" "õ" "ũ"))
+
+(defparameter $rhotic-vowels
+  '("ar" "er" "ir" "or" "ur"))
+
+(defparameter $lateralized-vowels
+  '("al" "el" "il" "ol" "ul"))
 
 (defparameter $diphthongs
   '("a" "e" "i" "o" "u"
@@ -78,4 +48,4 @@
     "oa" "oe" "oi" "ou"
     "ua" "ue" "ui" "uo"))
 
-(defparameter $vowels (append $short-vowels $long-vowels $diphthongs))
+(defparameter $vowels (append $short-vowels $long-vowels $nasal-vowels $rhotic-vowels $lateralized-vowels $diphthongs))
