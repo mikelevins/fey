@@ -29,3 +29,6 @@
   (function
    (lambda (x)
     (funcall f1 (funcall f2 x)))))
+
+(defun unichar (&rest chars)
+  (coerce (apply #'vector chars) 'string))

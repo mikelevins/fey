@@ -5,6 +5,7 @@
   :author "Your Name <your.name@example.com>"
   :license "Specify license here"
   :serial t
+  :depends-on (:cl-unicode)
   :components ((:module "src"
                         :serial t
                         :components ((:file "package")
