@@ -1,23 +1,23 @@
 (in-package :fi)
 
 (defparameter $onset-consonants
-  '("ph" "f" "th" "s" "rh" "lh" "sh" "yh" "ch" "wh" "h"))
+  '("br" "c" "d" "h" "f" "l" "lh" "m" "lh" "n" "r" "rh" "th"))
 
 (defparameter $onset-vowels
-  '("i" "u" "o" "e" "a" "í" "ú" "ó" "é" "á"))
+  '("ai" "e" "á" "é" "í" "ó" "ú"))
 
 (defparameter $onsets (append $onset-consonants $onset-vowels))
 
 (defparameter $coda-consonants
-  '("ph" "f" "th" "s" "rh" "lh" "sh" "yh" "ch" "wh" "h"))
+  '( "l" "m" "n" "nd" "r" "s" "sh" "th" "v" "w" "y"))
 
 (defparameter $coda-vowels
-  '("i" "u" "o" "e" "a" "í" "ú" "ó" "é" "á"))
+  '("au" "eo" "ua" "ui" "á" "é" "í" "ó" "ú"))
 
 (defparameter $codas (append $coda-consonants $coda-vowels))
 
 (defparameter $medial-vowels
-  '("i" "u" "o" "e" "a" "í" "ú" "ó" "é" "á"))
+  '("ae" "au" "e" "i" "o" "ua" "ui" "uo" "á" "é" "í" "ó" "ú"))
 
 (defparameter $short-vowels
   '("a" "e" "i" "o" "u"))
