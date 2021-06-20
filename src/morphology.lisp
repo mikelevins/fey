@@ -71,6 +71,7 @@
       words)))
 
 ;;; (defparameter $words (time (two-syllable-words "é" "br")))
+;;; (defparameter $words (time (two-syllable-words "e" "v")))
 
 (defun random-two-syllable-word ()
   (any (two-syllable-words (any $codas)
